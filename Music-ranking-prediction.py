@@ -18,4 +18,5 @@ for link1 in soup.find_all(name="td",attrs={"class":"ico"}):
 print(temp)
   
  
-
+# 도메인에 year month for 돌려서 받아와 9월 3주까지
+# print로 날짜 설정하고
