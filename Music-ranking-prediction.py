@@ -1,10 +1,11 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+import pandas as pd
 
-year = 2012
-month = 1
+year = 2019
+month = 9
 week = 1
-
+temp = []
 while (1):
     if week is 5:
         week = 1
@@ -18,13 +19,13 @@ while (1):
         print("end")
         break
 #현재 사이트에 2주까지 있어서 week은 3로 설정
-    month = str(month).rjust(2, '0')
-    myurl = "https://music.naver.com/listen/history/index.nhn?type=TOTAL&year="+str(year)+"&month=0"+str(month)+"&week="+str(week)
+    remonth = str(month).rjust(2, '0')
+    myurl = "https://music.naver.com/listen/history/index.nhn?type=TOTAL&year="+str(year)+"&month="+str(remonth)+"&week="+str(week)
     print(myurl)
     url = urlopen(myurl)
 
     soup = BeautifulSoup(url,"lxml")
-    temp = []
+    
     for link1 in soup.find_all(name="td",attrs={"class":"name"}):
         
         try:
@@ -41,4 +42,7 @@ while (1):
         
 
     week += 1
-    print(temp)
+
+data = pd.DataFrame(temp)
+data.to_csv('idval.csv', encoding='utf-8')  
+print("저장성공")   
