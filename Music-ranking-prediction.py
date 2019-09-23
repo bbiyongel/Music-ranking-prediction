@@ -18,7 +18,7 @@ while (1):
         print("end")
         break
 #현재 사이트에 2주까지 있어서 week은 3로 설정
-   
+    month = str(month).rjust(2, '0')
     myurl = "https://music.naver.com/listen/history/index.nhn?type=TOTAL&year="+str(year)+"&month=0"+str(month)+"&week="+str(week)
     print(myurl)
     url = urlopen(myurl)
@@ -42,10 +42,3 @@ while (1):
 
     week += 1
     print(temp)
-    
-
-
-
-
-
-
