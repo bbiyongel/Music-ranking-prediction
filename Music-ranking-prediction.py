@@ -45,17 +45,13 @@ while (1):
         
     for rank in soup.find_all(name="td",attrs={"class":"ranking"}):
         
-        try:
-            span = rank.selcet('span')
-            span = span.text
-            #span = span.strip("")
-            
+        try:  
+            print(rank.text)
             ranks.append(span)
         except:
             pass
             #print("href 없음")
         
-
     week += 1
     print(ranks)
 #data = pd.DataFrame(temp)
