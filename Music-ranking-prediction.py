@@ -6,6 +6,8 @@ year = 2019
 month = 9
 week = 1
 temp = []
+ranks = []
+
 while (1):
     if week is 5:
         week = 1
@@ -36,13 +38,26 @@ while (1):
                 pass
             else:
                 temp.append(a)
+                
+        except:
+            pass
+            #print("href 없음")
+        
+    for rank in soup.find_all(name="td",attrs={"class":"ranking"}):
+        
+        try:
+            span = rank.selcet('span')
+            span = span.text
+            #span = span.strip("")
+            
+            ranks.append(span)
         except:
             pass
             #print("href 없음")
         
 
     week += 1
-
-data = pd.DataFrame(temp)
-data.to_csv('idval.csv', encoding='utf-8')  
-print("저장성공")   
+    print(ranks)
+#data = pd.DataFrame(temp)
+#data.to_csv('idval.csv', encoding='utf-8')  
+#print("저장성공")   
