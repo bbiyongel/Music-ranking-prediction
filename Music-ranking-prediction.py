@@ -1,19 +1,22 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import pandas as pd
+from pandas import DataFrame
 
 year = 2019
-month = 9
+month = 8
 week = 1
 temp = []
 ranks = []
+
+
 
 while (1):
     if week is 5:
         week = 1
         month += 1
 
-    if month is 13:
+    if month is 13: 
         month = 1
         year += 1
 
@@ -39,6 +42,8 @@ while (1):
             else:
                 temp.append(a)
                 
+                
+                
         except:
             pass
             #print("href 없음")
@@ -46,14 +51,17 @@ while (1):
     for rank in soup.find_all(name="td",attrs={"class":"ranking"}):
         
         try:  
-            print(rank.text)
+            span = rank.text
             ranks.append(span)
+            
         except:
             pass
             #print("href 없음")
-        
+    
     week += 1
-    print(ranks)
-#data = pd.DataFrame(temp)
-#data.to_csv('idval.csv', encoding='utf-8')  
-#print("저장성공")   
+    
+data1 = DataFrame(ranks,columns=['rank'])  
+data2 = DataFrame(temp,columns=['songInfo'])
+data = pd.concat([data1,data2], axis = 1)
+data.to_csv('idval.csv', encoding='utf-8')  
+print("저장성공")   
