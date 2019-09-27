@@ -16,8 +16,7 @@ data4 = []
 for row in reader:
     rank = row[0] #rank
     URL_ID = row[1] #URL Num ID
-    #myurl = "https://music.naver.com/lyric/index.nhn?trackId="+str(URL_ID)
-    myurl = "https://music.naver.com/lyric/index.nhn?trackId=28450269"
+    myurl = "https://music.naver.com/lyric/index.nhn?trackId="+str(URL_ID)
     #print(myurl)
     url = urlopen(myurl)
     soup = BeautifulSoup(url,"lxml")
@@ -29,6 +28,7 @@ for row in reader:
         
     except:
         print('가수정보없음')
+        data1.append("")
         pass
     try:
         get_song_info = soup.find(name="p",attrs={"class":"song_info"})#작곡가
@@ -43,6 +43,7 @@ for row in reader:
             
         except:
             print('작곡가정보없음')
+            data2.append("")
             pass
         try:
             get_Lyricist = get_song_info.select('span')[1]
@@ -54,6 +55,7 @@ for row in reader:
             
         except:
             print('작사가정보없음')
+            data3.append("")
             pass
         try:
             get_Arrangement = get_song_info.select('span')[2]
@@ -65,6 +67,7 @@ for row in reader:
                
         except:
             print('편곡정보없음')
+            data4.append("")
             pass
     except:
         print('song info NULL')
