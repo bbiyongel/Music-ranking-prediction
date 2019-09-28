@@ -7,13 +7,10 @@ from pandas import DataFrame
 
 f = open('idval.csv', 'r')
 reader = csv.reader(f)
-
-data1 = []
-data2 = []
-data3 = []
-data4 = []
+temp2 = []
 
 for row in reader:
+    temp = []
     rank = row[0] #rank
     URL_ID = row[1] #URL Num ID
     myurl = "https://music.naver.com/lyric/index.nhn?trackId="+str(URL_ID)
@@ -24,11 +21,11 @@ for row in reader:
         get_Sing = soup.find(name="span",attrs={"class":"artist"})
         get_Sing = get_Sing.select('a')[0]['title']
         #print(get_Sing)
-        data1.append(get_Sing)
-        
+        temp.append(rank)
+        temp.append(get_Sing)
     except:
         print('가수정보없음')
-        data1.append("")
+        temp.append('')
         pass
     try:
         get_song_info = soup.find(name="p",attrs={"class":"song_info"})#작곡가
@@ -37,50 +34,45 @@ for row in reader:
             get_Composer = get_song_info.select('span')[0]
             get_Composer = get_Composer.select('a')[0]
             get_Composer = get_Composer.text
-            get_Composer.strip() #공백제거
-            #print(get_Composer)
-            data2.append(get_Composer)
-            
+            #print(get_Composer.strip()) #공백제거
+            temp.append(get_Composer.strip())
         except:
             print('작곡가정보없음')
-            data2.append("")
+            temp.append('')
             pass
         try:
             get_Lyricist = get_song_info.select('span')[1]
             get_Lyricist = get_Lyricist.select('a')[0]
             get_Lyricist = get_Lyricist.text
-            get_Lyricist.strip() #공백제거
-            #print(get_Lyricist)
-            data3.apped(get_Lyricist)
-            
+            #print(get_Lyricist.strip()) #공백제거
+            temp.append(get_Lyricist.strip())
         except:
             print('작사가정보없음')
-            data3.append("")
+            temp.append('')
             pass
         try:
             get_Arrangement = get_song_info.select('span')[2]
             get_Arrangement = get_Arrangement.select('a')[0]
             get_Arrangement = get_Arrangement.text
-            get_Arrangement.strip() #공백제거
-            #print(get_Arrangement)
-            data4.append(get_Arrangement)
-               
+            #print(get_Arrangement.strip()) #공백제거
+            temp.append(get_Arrangement.strip())
         except:
             print('편곡정보없음')
-            data4.append("")
+            temp.append('')
             pass
     except:
         print('song info NULL')
         pass
+    temp2.append(temp)
+    if len(temp2) is 200:
+        data = pd.DataFrame(temp2)
+        data.to_csv('dataset.txt', mode='a', encoding='utf-8',header=None)
+        temp2 = []
+    #print(temp2)
+#temp2.append(temp)
+data = pd.DataFrame(temp2)
+data.to_csv('dataset.txt', mode='a', encoding='utf-8',header=None)
 
-data1 = DataFrame(data1)
-data2 = DataFrame(data2)
-data3 = DataFrame(data3)
-data4 = DataFrame(data4)
-data = pd.concat([data1,data2,data3,data4], axis = 1)
-data = pd.DataFrame(data)
-data.to_csv('dataset.csv', mode='a', encoding='euc-kr',header=None)
-print("저장성공")   
 f.close()
 
 
