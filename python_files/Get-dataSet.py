@@ -1,3 +1,5 @@
+#수집한 주소를 이용, 작사, 작곡, 가수... 데이터를 수집
+#csv파일로 저장
 import csv
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
