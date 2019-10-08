@@ -1,3 +1,5 @@
+#네이버 뮤직에서 데이터를 수집합니다.
+#수집할 데이터가 들어있는 주소를 수집
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import pandas as pd
