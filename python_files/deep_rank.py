@@ -1,3 +1,6 @@
+#불필요한 문자가 제거된 데이터는 문자열이기 때문에
+#머신러닝을 위해 임의로 숫자로 된 라벨을 붙임
+
 import pandas as pd
 from collections import Counter
 import numpy as np
