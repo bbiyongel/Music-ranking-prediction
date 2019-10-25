@@ -19,16 +19,8 @@ data4 = list(mydataset['가수'])
 mydatalist += data4
 mydatalist = list(set(mydatalist))
 
-new_list = []
-
-for i in range(0, len(mydatalist)):
-        
-    temp = []
-    temp.append(mydatalist[i])
-    new_list += temp
-
-new_list = list(map(str, new_list))
-new_list = sorted(new_list)
+cg_str_list = list(map(str, mydatalist))
+sort_list = sorted(cg_str_list)
 
 
 #인덱스 저장
@@ -36,10 +28,10 @@ new_list = sorted(new_list)
 #data.to_csv('index_num.txt', mode='a', encoding='utf-8',header=None)
 
 
-for data_cg in data4:
+for data_cg in data1:
     #문자열을 숫자로(라벨 붙이기)
     temp2 = []
-    temp2.append(new_list.index(str(data_cg)))#인덱스 찾기
+    temp2.append(sort_list.index(str(data_cg)))#인덱스 찾기
     #이름을 인덱스 번호로 바꿔주고 저장, 새로운 dataset만들기
     data = pd.DataFrame(temp2)
-    data.to_csv('가수.txt', mode='a', encoding='utf-8',header=None)
+    data.to_csv('작곡.txt', mode='a', encoding='utf-8',header=None)
